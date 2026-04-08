@@ -27,8 +27,8 @@ pipeline {
                 dir('catalogue') {
                     script {
                         def packagejson = readJSON file: 'package.json'
-                        env.APPVERSION = packagejson.version
-                        echo "APPVERSION IS: ${env.APPVERSION}"
+                        APPVERSION = packagejson.version
+                        echo "APPVERSION IS: ${APPVERSION}"
                     }
                 }
             }
