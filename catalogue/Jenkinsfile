@@ -54,6 +54,13 @@ pipeline {
                 }
             }
         }
+        stage('quality gate') {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('image build') {
             steps {
                 sh "docker build -t ${PROJECT}/${COMPONENT}:${APPVERSION}-${BUILD_NUMBER} ./catalogue"
