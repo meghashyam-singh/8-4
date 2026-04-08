@@ -11,6 +11,10 @@ pipeline {
         COMPONENT='user'
         ACCOUNT_ID='515138251473'
     }
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+    }
     stages {
         stage('clean workspace') {
             steps {
@@ -51,6 +55,13 @@ pipeline {
                         sh "${scannerHome}/bin/sonar-scanner"
                         }
                     }
+                }
+            }
+        }
+        stage('quality gate') {
+            steps {
+                timeout(time:1, unit:'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
