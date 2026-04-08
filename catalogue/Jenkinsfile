@@ -19,7 +19,7 @@ pipeline {
         }
         stage('get code') {
             steps {
-                git url: '', branch: 'https://github.com/meghashyam-singh/8-4.git', 'main'
+                git url: 'https://github.com/meghashyam-singh/8-4.git', branch: 'main'
             }
         }
         stage('read version') {
