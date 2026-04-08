@@ -56,7 +56,9 @@ pipeline {
         }
         stage('build image') {
             steps {
-                sh "docker build -t ${PROJECT}/${COMPONENT}:${APPVERSION}-${BUILD_NUMBER} ./shipping"
+                dir('shipping') {
+                    sh "docker build -t ${PROJECT}/${COMPONENT}:${APPVERSION}-${BUILD_NUMBER} ."
+                }
             }
         }
         stage('scan image') {
