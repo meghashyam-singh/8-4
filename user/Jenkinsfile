@@ -33,16 +33,20 @@ pipeline {
                 }
             }
         }
-        stage('build code') {
-            steps {
-                dir('user') {
-                    sh "npm install"
+        stage ('build code and docker image') {
+            parallel {
+                stage('build code') {
+                    steps {
+                        dir('user') {
+                            sh "npm install"
+                        }
+                    }
                 }
-            }
-        }
-        stage('build-image') {
-            steps {
-                sh "docker build -t ${PROJECT}/${COMPONENT}:${APPVERSION}-${BUILD_NUMBER} ./user"
+                stage('build-image') {
+                    steps {
+                        sh "docker build -t ${PROJECT}/${COMPONENT}:${APPVERSION}-${BUILD_NUMBER} ./user"
+                    }
+                }
             }
         }
         stage('scan image') {
